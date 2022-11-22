@@ -1,12 +1,32 @@
 package be.pxl.ja;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeelnemerReader {
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("mm:ss");
 
 	// TODO implement static method for reading file
+	public static List<Deelnemer> readFile(Path path) {
+		List<Deelnemer> result = new ArrayList<>();
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+			reader.readLine();// ignore first line
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				result.add(mapLineToDeelnemer(line));
+			}
+		} catch (IOException e) {
+			System.out.println("Er is een fout opgetreden: " + e.getMessage());
+		}
+		return result;
+	}
 
 	public static Deelnemer mapLineToDeelnemer(String line) {
 		String[] split = line.split(";");

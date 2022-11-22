@@ -4,14 +4,14 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deelnemer {
+public class Deelnemer implements Comparable<Deelnemer>{
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("mm:ss.SS");
 
 	private String naam;
 	private Klassement klassement;
-	private Duration lopen;// tijd 1500m lopen
-	private Duration roeien; // tijd 1000m roeien
-	private Duration fietsen; // tijd 3000m fietsen
+	private Duration lopen = Duration.ZERO;// tijd 1500m lopen
+	private Duration roeien = Duration.ZERO; // tijd 1000m roeien
+	private Duration fietsen = Duration.ZERO; // tijd 3000m fietsen
 	private int monkeyBars; // aantal monkey bars
 	private int golf; // afstand in m
 	private int schieten; // aantal targets geraakt
@@ -108,5 +108,15 @@ public class Deelnemer {
 
 	public String getEindtijdAsString() {
 		return LocalTime.MIDNIGHT.plus(getEindtijd()).format(FORMATTER);
+	}
+
+	@Override
+	public int compareTo(Deelnemer deelnemer) {
+		return this.getEindtijd().compareTo(deelnemer.getEindtijd());
+	}
+
+	@Override
+	public String toString() {
+		return getEindtijdAsString() + " " + naam;
 	}
 }

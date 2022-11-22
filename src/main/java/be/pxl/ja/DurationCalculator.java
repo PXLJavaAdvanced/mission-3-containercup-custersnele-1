@@ -1,6 +1,7 @@
 package be.pxl.ja;
 
 import java.time.Duration;
+import java.util.function.Function;
 
 public class DurationCalculator {
 
@@ -18,5 +19,10 @@ public class DurationCalculator {
 
 	public Duration getResult() {
 		return value;
+	}
+
+	public <T> void minus(T data, Function<T, Duration> converter) {
+		Duration dataToDuration = converter.apply(data);
+		minus(dataToDuration);
 	}
 }
