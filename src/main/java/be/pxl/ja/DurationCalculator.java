@@ -7,8 +7,6 @@ public class DurationCalculator {
 
 	private Duration value = Duration.ZERO;
 
-	// TODO implement generic method
-
 	public void minus(Duration duration) {
 		value = value.minus(duration);
 	}
